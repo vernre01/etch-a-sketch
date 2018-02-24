@@ -20,16 +20,17 @@ button {
 .container {
 	border:10px solid red;
 	display: grid;
-	grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+	grid-template-columns: repeat(16, auto);
 	height:480px;
 	margin: auto;
 	width:480px;
+	overflow: hidden;
 }
 
 .grid-item {
 	background-color: white;
-	height: 30px;
-	width: 30px;
+	height: calc(480px/16px);
+	width: calc(480px/16px);
 }
 
 .colored {
