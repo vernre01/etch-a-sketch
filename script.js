@@ -11,26 +11,31 @@ function playGrid(gridSize) {
 		container.style.cssText = 'grid-template-columns: repeat(' + gridSize + ', auto)';
 		squares.style.cssText = 'height: ' + 480/gridSize + 'px; width:' + 480/gridSize + 'px';
 		squares.addEventListener('mouseover', (event) => {
-			event.target.classList.add('colored');
+			event.target.classList.add('black');
 		});
 		container.appendChild(squares);
 	}
 }
 
-/*
+
 //function to change 'mouseover' color from black to random
 colorButton.addEventListener('click', (e) => {
 
 });
-*/
+
 
 //function to reset color of grid to white
 clearButton.addEventListener('click', (e) => {
-	let filledSquare = document.querySelectorAll('.grid-item.colored');
+	let filledSquare = document.querySelectorAll('.grid-item.black');
 	for (i = 0; i < filledSquare.length; i++) {
-		filledSquare[i].classList.remove('colored');
+		filledSquare[i].classList.remove('black');
 	}
 });
+
+//function to clear out old nodes
+function removeNodes() {
+	let oldBoxes = document.querySelectorAll(".grid-item, .grid-item.black").forEach(e => e.parentNode.removeChild(e));
+}
 
 //function that changes size of grid from default
 sizeButton.addEventListener('click', (e) => {
@@ -40,6 +45,7 @@ sizeButton.addEventListener('click', (e) => {
 	} else if (gridSize > 100) {
 		alert("Invalid entry. Please try again.");
 	} else {
+		removeNodes();
 		playGrid(gridSize);
 	}		
 });
