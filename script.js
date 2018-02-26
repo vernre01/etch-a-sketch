@@ -1,36 +1,58 @@
 const container = document.querySelector('.container');
 const gridSize = 16;
+let counter = 1;
+let rainbowActive = false;
 const colorButton = document.querySelector('#rainbow');
 const sizeButton = document.querySelector('#gridpx');
 const clearButton = document.querySelector('#cleargrid');
 
+//function to set up the grid for Etch-a-Sketch play
 function playGrid(gridSize) {
 	for (i = 0; i < (gridSize*gridSize); i++) {
 		const squares = document.createElement('div');
 		squares.classList.add('grid-item');
 		container.style.cssText = 'grid-template-columns: repeat(' + gridSize + ', auto)';
-		squares.style.cssText = 'height: ' + 480/gridSize + 'px; width:' + 480/gridSize + 'px';
-		squares.addEventListener('mouseover', (event) => {
-			event.target.classList.add('black');
-		});
+		squares.style.height = 480/gridSize + 'px';
+		squares.style.width = 480/gridSize + 'px';
+		colorPicker(squares);
 		container.appendChild(squares);
 	}
 }
 
-
 //function to change 'mouseover' color from black to random
+function colorPicker(squares) {
+	squares.addEventListener('mouseover', (event) => {
+		if (rainbowActive) {
+			squares.style.backgroundColor = 'rgb(' + Math.floor(Math.random() * 255) + ", " + Math.floor(Math.random() * 255) + ", " + Math.floor(Math.random() * 255) + ")";
+		} else {
+			squares.style.backgroundColor = '';
+			squares.classList.add('black');
+		}
+	});
+}
+
+//Sets the function of the Rainbow Button
 colorButton.addEventListener('click', (e) => {
-
-});
-
-
-//function to reset color of grid to white
-clearButton.addEventListener('click', (e) => {
-	let filledSquare = document.querySelectorAll('.grid-item.black');
-	for (i = 0; i < filledSquare.length; i++) {
-		filledSquare[i].classList.remove('black');
+	counter++;
+	if(counter % 2 === 0) {
+		rainbowActive = true;
+	} else {
+		rainbowActive = false;
 	}
 });
+
+
+//Sets the function of the Reset Button
+clearButton.addEventListener('click', clearColors);
+
+//function to reset color of grid to white
+function clearColors() {
+	let filledSquare = document.querySelectorAll('.grid-item, .grid-item.black');
+	for (i = 0; i < filledSquare.length; i++) {
+		filledSquare[i].classList.remove('black');
+		filledSquare[i].style.cssText = "";
+	}
+}
 
 //function to clear out old nodes
 function removeNodes() {
