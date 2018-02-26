@@ -35,12 +35,13 @@ function colorPicker(squares) {
 colorButton.addEventListener('click', (e) => {
 	counter++;
 	if(counter % 2 === 0) {
+		colorButton.style.backgroundColor = 'gray';
 		rainbowActive = true;
 	} else {
+		colorButton.style.backgroundColor = '';
 		rainbowActive = false;
 	}
 });
-
 
 //Sets the function of the Reset Button
 clearButton.addEventListener('click', clearColors);
